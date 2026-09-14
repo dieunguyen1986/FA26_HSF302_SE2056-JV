@@ -14,6 +14,8 @@ public class AppConfig {
         Employee employee = new Employee(2L, "Hieu", "Male", "Bui",
                 1000, "Hanoi", "0987654356");
 
+        employee.setSalary(3000);
+        employee.setAddress("HCM");
         return employee;
     }
 
