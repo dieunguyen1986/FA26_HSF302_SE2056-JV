@@ -1,8 +1,7 @@
 package candidate.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import candidate.entity.University;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,5 +12,12 @@ public class UniversityController {
     @GetMapping
     public List<String> listUnis(){
         return List.of("FPTU", "HUST");
+    }
+
+    @PostMapping
+    public String postUnis(@ModelAttribute University unis){
+
+        System.out.println("post unis: "+ unis);
+        return "unis"; // JSON
     }
 }
