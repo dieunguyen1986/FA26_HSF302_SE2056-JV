@@ -13,7 +13,10 @@ public class CandidateRepositoryImpl implements CandidateRepository {
 
     @Override
     public Candidate save(Candidate candidate) {
+        System.out.println(candidate.toString());
         Session session = sessionFactory.getCurrentSession();
-        return null;
+        session.persist(candidate);
+
+        return candidate;
     }
 }

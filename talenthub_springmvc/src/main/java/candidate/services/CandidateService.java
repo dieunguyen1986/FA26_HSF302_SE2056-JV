@@ -1,8 +1,10 @@
 package candidate.services;
 
+import candidate.dto.CandidateRequest;
+import candidate.dto.CandidateResponse;
 import candidate.entity.Candidate;
 
 public interface CandidateService {
 
-    Candidate createCandidate(Candidate candidate);
+    CandidateResponse createCandidate(CandidateRequest request);
 }

@@ -21,10 +21,15 @@ public class Candidate {
     private String fullName;
 
     private String email;
+    private  String password;
 
     @Column(name = "phone_number")
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     private CandidateStatus status;
+
+    @ManyToOne
+    @JoinColumn(name = "unis_id", referencedColumnName = "id")
+    private University university;
 }

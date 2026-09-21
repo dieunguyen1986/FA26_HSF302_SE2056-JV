@@ -1,6 +1,6 @@
 package candidate.controller;
 
-import candidate.entity.Candidate;
+import candidate.dto.CandidateRequest;
 import candidate.services.CandidateService;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,23 +28,28 @@ public class CandidateController {
     }
 
 
-    /*
-    @RequestParam(name = "fullName") String fullName,
-                         @RequestParam(name = "email") String email,
-                         @RequestParam(name="password") String password,
-                         @RequestParam(name="status") String status,
-                         @RequestParam(name = "phoneNumber") String phoneNumber, HttpServletRequest request
-     */
     @PostMapping("/candidates")
-    public String create(@ModelAttribute Candidate candidate) {
+
+    public String create(
+//            @RequestParam(name = "fullName") String fullName,
+//            @RequestParam(name = "email") String email,
+//            @RequestParam(name = "password") String password,
+//            @RequestParam(name = "status") String status,
+//            @RequestParam(name = "phoneNumber") String phoneNumber, HttpServletRequest request
+//    ) {
+            @ModelAttribute CandidateRequest request) {
 
         // Logging to console
         System.out.println("create");
-        System.out.println("fullName: " + candidate.getFullName());
-        System.out.println("email: " + candidate.getEmail());
+        System.out.println("fullName: " + request.getFullName());
+        System.out.println("email: " + request.getEmail());
 
         // Call service
-        candidateService.createCandidate(candidate);
+        try {
+            candidateService.createCandidate(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return "create"; // @Controller: view name - ten man hinh; @RestController: JSON
     }
