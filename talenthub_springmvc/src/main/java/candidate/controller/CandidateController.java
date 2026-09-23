@@ -2,10 +2,11 @@ package candidate.controller;
 
 import candidate.dto.CandidateRequest;
 import candidate.services.CandidateService;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 // Duc, Cao Van Hung, Dat (1.0), Luu Tien Dung (1.0)
-@RestController
+@Controller
 public class CandidateController {
     // DI
     private CandidateService candidateService;
@@ -20,11 +21,11 @@ public class CandidateController {
         return "list_candidate";
     }
 
-    @GetMapping("/hello")
+    @GetMapping("/")
     public String hello() {
-        System.out.println("hello");
+        System.out.println("Candiate Management");
 
-        return "index"; // /WEB-INF/index.jsp
+        return "create_candidate"; // /WEB-INF/views/create_candidate.html
     }
 
 
@@ -51,7 +52,7 @@ public class CandidateController {
             e.printStackTrace();
         }
 
-        return "create"; // @Controller: view name - ten man hinh; @RestController: JSON
+        return "redirect:/candidates"; // @Controller: view name - ten man hinh; @RestController: JSON
     }
 
 

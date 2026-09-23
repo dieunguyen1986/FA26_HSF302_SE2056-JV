@@ -15,7 +15,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = "candidate")
+@ComponentScan(basePackages = {"candidate.repository", "candidate.services"})
 public class HibernateConfig {
 
     @Bean // IoC
@@ -45,6 +45,7 @@ public class HibernateConfig {
         hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.SQLServerDialect");
         hibernateProperties.setProperty("hibernate.show_sql", "true");
         hibernateProperties.setProperty("hibernate.format_sql", "true");
+//        hibernateProperties.setProperty("hibernate.current_session_context_class", "spring");
 
         return hibernateProperties;
     }

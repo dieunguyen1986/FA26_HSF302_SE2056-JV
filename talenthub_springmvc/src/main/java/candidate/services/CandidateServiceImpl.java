@@ -5,7 +5,6 @@ import candidate.dto.CandidateRequest;
 import candidate.dto.CandidateResponse;
 import candidate.entity.Candidate;
 import candidate.entity.CandidateStatus;
-import candidate.entity.University;
 import candidate.repository.CandidateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,8 +30,13 @@ public class CandidateServiceImpl implements CandidateService {
                 .email(request.getEmail())
                 .fullName(request.getFullName())
                 .password(request.getPassword())
-                .status(CandidateStatus.valueOf(request.getStatus()))
                 .build();
+
+        if (request.getStatus() != null) {
+            candidate.setStatus(CandidateStatus.valueOf(request.getStatus()));
+        } else {
+            candidate.setStatus(CandidateStatus.APPLY);
+        }
 
 //        University university = University.builder().id(request.getUnisId()).build();
 //        candidate.setUniversity(university);
