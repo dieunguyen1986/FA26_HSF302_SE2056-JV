@@ -1,5 +1,7 @@
 package candidate.dto;
 
+import candidate.entity.CandidateStatus;
+import candidate.entity.University;
 import lombok.*;
 
 @Getter
@@ -14,5 +16,7 @@ public class CandidateResponse {
 
     private String email;
     private String phoneNumber;
-    private Long unisId;
+    private CandidateStatus status;
+
+    private University university;
 }

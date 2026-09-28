@@ -1,23 +1,24 @@
 package candidate.controller;
 
 import candidate.entity.University;
-import org.springframework.web.bind.annotation.*;
+import candidate.services.UniversityService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/unis")
+@Controller
+@RequiredArgsConstructor
 public class UniversityController {
 
-    @GetMapping
-    public List<String> listUnis(){
-        return List.of("FPTU", "HUST");
-    }
+    private final UniversityService universityService;
 
-    @PostMapping
-    public String postUnis(@ModelAttribute University unis){
-
-        System.out.println("post unis: "+ unis);
-        return "unis"; // JSON
+    @GetMapping("/universities")
+    public String listUniversities(Model model) {
+        List<University> universities = universityService.getAllUniversities();
+        model.addAttribute("universities", universities);
+        return "create_candidate";
     }
 }
