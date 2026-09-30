@@ -7,10 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/jobs")
@@ -26,5 +25,15 @@ public class JobController {
 
         return ResponseEntity.status(HttpStatus.OK).body(jobService.create(request));
 
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAll() {
+        return ResponseEntity.ok(jobService.findAll());
+    }
+
+    @GetMapping("/find")
+    public ResponseEntity<?> getById(@RequestParam("id") UUID id) {
+        return ResponseEntity.ok(jobService.findById(id));
     }
 }

@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.UUID;
+import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +30,25 @@ public class JobServiceImpl implements JobService {
         return JobResponse.from(jobRepository.save(toEntity(request)));
     }
 
+    @Override
+    public List<JobResponse> findAll() {
+        List<Job> jobs = jobRepository.findAll();
+
+        List<JobResponse> jobResponses = jobs.stream().map((job) -> {
+            return JobResponse.from(job);
+        }).toList();
+
+        return jobResponses;
+    }
+
+    @Override
+    public JobResponse findById(UUID id) {
+        Job job = jobRepository.findById(id).orElseThrow(() -> {
+            throw new IllegalArgumentException("Job not found!");
+        });
+        return JobResponse.from(job);
+    }
+
 
     private Job toEntity(CreateJobRequest request) {
         Job job = new Job();
@@ -41,5 +63,13 @@ public class JobServiceImpl implements JobService {
         job.setDeadline(request.deadline());
         job.setCreatedAt(OffsetDateTime.now());
         return job;
+    }
+}
+
+class FuncImpl implements Function<Job, JobResponse> {
+
+    @Override
+    public JobResponse apply(Job job) {
+        return null;
     }
 }
