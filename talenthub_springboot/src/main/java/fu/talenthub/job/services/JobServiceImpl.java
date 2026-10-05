@@ -49,6 +49,33 @@ public class JobServiceImpl implements JobService {
         return JobResponse.from(job);
     }
 
+    @Override
+    public JobResponse update(UUID id, CreateJobRequest request) {
+        Job job = jobRepository.findById(id).orElseThrow(() -> {
+            throw new IllegalArgumentException("Job not found!");
+        });
+        
+        job.setTitle(request.title());
+        job.setDescription(request.description());
+        job.setLocation(request.location());
+        job.setSalaryMax(request.salaryMax());
+        job.setSalaryMin(request.salaryMin());
+        job.setUtmMedium(request.utmMedium());
+        job.setUtmSource(request.utmSource());
+        job.setDeadline(request.deadline());
+        job.setUpdatedAt(OffsetDateTime.now());
+        
+        return JobResponse.from(jobRepository.save(job));
+    }
+
+    @Override
+    public void delete(UUID id) {
+        if (!jobRepository.existsById(id)) {
+            throw new IllegalArgumentException("Job not found!");
+        }
+        jobRepository.deleteById(id);
+    }
+
 
     private Job toEntity(CreateJobRequest request) {
         Job job = new Job();
@@ -63,13 +90,5 @@ public class JobServiceImpl implements JobService {
         job.setDeadline(request.deadline());
         job.setCreatedAt(OffsetDateTime.now());
         return job;
-    }
-}
-
-class FuncImpl implements Function<Job, JobResponse> {
-
-    @Override
-    public JobResponse apply(Job job) {
-        return null;
     }
 }

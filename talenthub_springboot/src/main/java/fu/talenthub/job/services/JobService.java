@@ -11,4 +11,8 @@ public interface JobService {
     List<JobResponse> findAll();
 
     JobResponse findById(UUID id);
+
+    JobResponse update(UUID id, CreateJobRequest request);
+
+    void delete(UUID id);
 }

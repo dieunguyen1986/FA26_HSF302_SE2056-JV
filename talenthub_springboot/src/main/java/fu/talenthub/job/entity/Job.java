@@ -52,4 +52,8 @@ public class Job extends BaseEntity {
 
     @Column(name = "published_at")
     private OffsetDateTime publishedAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
+    private Department department;
 }
