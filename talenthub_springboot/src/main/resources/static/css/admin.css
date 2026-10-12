@@ -1,0 +1,217 @@
+:root {
+    --admin-primary: #2563eb;
+    --admin-sidebar: #111827;
+    --admin-sidebar-muted: #9ca3af;
+    --admin-border: #e5e7eb;
+    --admin-surface: #ffffff;
+    --admin-background: #f3f4f6;
+}
+
+.admin-page {
+    min-height: 100vh;
+    background: var(--admin-background);
+    color: #1f2937;
+}
+
+.admin-page > .container-fluid {
+    padding: 0;
+}
+
+.admin-page > .container-fluid > .row:first-child,
+.admin-page > .container-fluid > .row:last-child {
+    margin: 0;
+}
+
+.admin-page > .container-fluid > .row:first-child > .col-md-12,
+.admin-page > .container-fluid > .row:last-child > .col-md-12 {
+    padding: 0;
+}
+
+.admin-header {
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--admin-surface);
+    border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-header-left,
+.admin-header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.admin-header-toggle,
+.admin-header-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    color: #4b5563;
+    background: transparent;
+    border: 0;
+    border-radius: 0.5rem;
+}
+
+.admin-header-toggle:hover,
+.admin-header-btn:hover {
+    color: var(--admin-primary);
+    background: #eff6ff;
+}
+
+.admin-search {
+    position: relative;
+}
+
+.admin-search .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 0.85rem;
+    color: #9ca3af;
+    transform: translateY(-50%);
+}
+
+.admin-search input {
+    width: min(30vw, 320px);
+    min-height: 2.5rem;
+    padding: 0.5rem 0.85rem 0.5rem 2.5rem;
+    background: #f9fafb;
+    border: 1px solid var(--admin-border);
+    border-radius: 0.5rem;
+    outline: 0;
+}
+
+.admin-search input:focus {
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 0.2rem rgb(37 99 235 / 15%);
+}
+
+.admin-page > .container-fluid > .row:nth-child(2) {
+    min-height: calc(100vh - 144px);
+    margin: 0;
+}
+
+.admin-page > .container-fluid > .row:nth-child(2) > .col-md-2 {
+    padding: 0;
+    background: var(--admin-sidebar);
+}
+
+.admin-page > .container-fluid > .row:nth-child(2) > .col-md-10 {
+    padding: 1.5rem;
+}
+
+.admin-sidebar {
+    min-height: 100%;
+    padding: 1.5rem 1rem;
+    color: #f9fafb;
+    background: var(--admin-sidebar);
+}
+
+.admin-sidebar-brand {
+    padding: 0 0.75rem 1.75rem;
+    border-bottom: 1px solid rgb(255 255 255 / 10%);
+}
+
+.admin-sidebar-brand a,
+.admin-sidebar-brand a:hover {
+    color: #f9fafb;
+}
+
+.brand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    color: #fff;
+    background: var(--admin-primary);
+    border-radius: 0.5rem;
+}
+
+.brand-text {
+    font-weight: 700;
+}
+
+.brand-text small {
+    display: block;
+    margin-top: 0.15rem;
+    color: var(--admin-sidebar-muted);
+    font-size: 0.7rem;
+    font-weight: 400;
+}
+
+.admin-sidebar-nav {
+    padding-top: 1.5rem;
+}
+
+.admin-nav-label {
+    display: block;
+    margin: 0 0.75rem 0.5rem;
+    color: var(--admin-sidebar-muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.admin-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.25rem;
+    padding: 0.7rem 0.75rem;
+    color: #d1d5db;
+    border-radius: 0.5rem;
+    text-decoration: none;
+}
+
+.admin-nav-item:hover,
+.admin-nav-item.active {
+    color: #fff;
+    background: rgb(37 99 235 / 85%);
+}
+
+.admin-nav-badge {
+    margin-left: auto;
+    padding: 0.15rem 0.45rem;
+    color: #dbeafe;
+    background: rgb(59 130 246 / 35%);
+    border-radius: 999px;
+    font-size: 0.7rem;
+}
+
+.admin-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    color: #6b7280;
+    background: var(--admin-surface);
+    border-top: 1px solid var(--admin-border);
+    font-size: 0.875rem;
+}
+
+@media (max-width: 767.98px) {
+    .admin-header {
+        padding: 0.75rem 1rem;
+    }
+
+    .admin-search input {
+        width: 45vw;
+    }
+
+    .admin-page > .container-fluid > .row:nth-child(2) > .col-md-10 {
+        padding: 1rem;
+    }
+
+    .admin-footer {
+        flex-direction: column;
+        padding: 1rem;
+    }
+}

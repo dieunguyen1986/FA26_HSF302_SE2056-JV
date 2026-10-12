@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- Admin Sidebar Fragment -->
+<body>
+<aside th:fragment="sidebar" class="admin-sidebar" id="adminSidebar">
+    <!-- Brand -->
+    <div class="admin-sidebar-brand">
+        <a th:href="@{/}" href="/" class="text-decoration-none d-flex align-items-center gap-2">
+            <span class="brand-icon">
+                <i class="bi bi-briefcase-fill"></i>
+            </span>
+            <span class="brand-text">Job Board <small>Admin Panel</small></span>
+        </a>
+    </div>
+
+    <!-- Navigation -->
+    <div class="admin-sidebar-nav">
+        <span class="admin-nav-label">Menu</span>
+        <a th:href="@{/admin/dashboard}" href="/admin/dashboard" class="admin-nav-item active">
+            <i class="bi bi-grid-1x2-fill"></i>
+            <span>Dashboard</span>
+        </a>
+        <a th:href="@{/jobs/manage}" href="/jobs/manage" class="admin-nav-item">
+            <i class="bi bi-card-list"></i>
+            <span>Manage Jobs</span>
+            <span class="admin-nav-badge">14</span>
+        </a>
+        <a th:href="@{/admin/applications}" href="/admin/applications" class="admin-nav-item">
+            <i class="bi bi-file-earmark-person-fill"></i>
+            <span>Applications</span>
+            <span class="admin-nav-badge" style="background: #ef4444;">3</span>
+        </a>
+        <a th:href="@{/admin/candidates}" href="/admin/candidates" class="admin-nav-item">
+            <i class="bi bi-people-fill"></i>
+            <span>Candidates</span>
+        </a>
+        <a th:href="@{/admin/companies}" href="/admin/companies" class="admin-nav-item">
+            <i class="bi bi-building"></i>
+            <span>Companies</span>
+        </a>
+
+        <span class="admin-nav-label mt-2">Configuration</span>
+        <a th:href="@{/admin/settings}" href="/admin/settings" class="admin-nav-item">
+            <i class="bi bi-gear-fill"></i>
+            <span>Settings</span>
+        </a>
+        <a th:href="@{/admin/users}" href="/admin/users" class="admin-nav-item">
+            <i class="bi bi-person-badge-fill"></i>
+            <span>User Management</span>
+        </a>
+    </div>
+
+    <!-- Footer / User summary -->
+    <div class="admin-sidebar-footer">
+<!--        <a th:href="@{/admin/profile}" href="/admin/profile" class="admin-sidebar-user">-->
+<!--            <div class="user-avatar" th:text="${#authentication.name != null ? #strings.substring(#authentication.name,0,1).toUpperCase() : 'A'}">A</div>-->
+<!--            <div class="user-info">-->
+<!--                <div class="user-name" th:text="${#authentication.name}">Admin User</div>-->
+<!--                <div class="user-role" sec:authorize="hasRole('ROLE_ADMIN')">Administrator</div>-->
+<!--                <div class="user-role" sec:authorize="hasRole('ROLE_RECRUITER')">Recruiter</div>-->
+<!--            </div>-->
+<!--        </a>-->
+    </div>
+</aside>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- Admin Header Fragment -->
+<body>
+
+<header th:fragment="header" class="admin-header">
+    <div class="admin-header-left">
+        <button type="button" class="admin-header-toggle" id="sidebarToggle">
+            <i class="bi bi-list"></i>
+        </button>
+        
+        <div class="admin-search d-none d-md-block">
+            <i class="bi bi-search search-icon"></i>
+            <input type="text" placeholder="Search jobs, candidates...">
+        </div>
+    </div>
+
+    <div class="admin-header-right">
+        <!-- Notifications -->
+        <button type="button" class="admin-header-btn">
+            <i class="bi bi-bell"></i>
+            <span class="badge-dot"></span>
+        </button>
+        
+        <!-- Messages -->
+        <button type="button" class="admin-header-btn">
+            <i class="bi bi-envelope"></i>
+        </button>
+
+        <!-- User Dropdown -->
+        <div class="dropdown">
+<!--            <a href="#" class="admin-header-user dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                <div class="avatar" th:text="${#authentication.name != null ? #strings.substring(#authentication.name,0,1).toUpperCase() : 'A'}">A</div>-->
+<!--                <div class="info d-none d-sm-block">-->
+<!--                    <div class="name" th:text="${#authentication.name}">Admin User</div>-->
+<!--                    <div class="role" sec:authorize="hasRole('ROLE_ADMIN')">Administrator</div>-->
+<!--                    <div class="role" sec:authorize="hasRole('ROLE_RECRUITER')">Recruiter</div>-->
+<!--                </div>-->
+<!--            </a>-->
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                <li><a class="dropdown-item py-2" th:href="@{/admin/profile}"><i class="bi bi-person me-2 text-secondary"></i> My Profile</a></li>
+                <li><a class="dropdown-item py-2" th:href="@{/admin/settings}"><i class="bi bi-gear me-2 text-secondary"></i> Settings</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <form th:action="@{/auth/logout}" method="post">
+                        <button type="submit" class="dropdown-item py-2 text-danger">
+                            <i class="bi bi-box-arrow-right me-2"></i> Log out
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+</body>
+</html>

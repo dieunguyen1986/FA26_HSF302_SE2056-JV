@@ -2,7 +2,7 @@ package fu.talenthub.job.entity;
 
 public enum JobStatus {
     DRAFT,
-    PUBLISH,
+    PUBLISHED,
     HIDDEN,
     CLOSED
 }

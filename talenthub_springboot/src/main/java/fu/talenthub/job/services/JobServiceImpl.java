@@ -4,6 +4,7 @@ import fu.talenthub.job.dto.CreateJobRequest;
 import fu.talenthub.job.dto.JobResponse;
 import fu.talenthub.job.entity.Job;
 import fu.talenthub.job.entity.JobStatus;
+import fu.talenthub.job.exception.JobInvalidException;
 import fu.talenthub.job.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +23,7 @@ public class JobServiceImpl implements JobService {
         // Business Rule: Validate
 
         if (request.salaryMax().compareTo(request.salaryMin()) < 0) {
-            throw new IllegalArgumentException("Max < Min salary!");
+            throw new JobInvalidException("Max < Min salary!");
         }
 
 
@@ -54,7 +54,7 @@ public class JobServiceImpl implements JobService {
         Job job = jobRepository.findById(id).orElseThrow(() -> {
             throw new IllegalArgumentException("Job not found!");
         });
-        
+
         job.setTitle(request.title());
         job.setDescription(request.description());
         job.setLocation(request.location());
@@ -64,7 +64,7 @@ public class JobServiceImpl implements JobService {
         job.setUtmSource(request.utmSource());
         job.setDeadline(request.deadline());
         job.setUpdatedAt(OffsetDateTime.now());
-        
+
         return JobResponse.from(jobRepository.save(job));
     }
 
@@ -74,6 +74,17 @@ public class JobServiceImpl implements JobService {
             throw new IllegalArgumentException("Job not found!");
         }
         jobRepository.deleteById(id);
+    }
+
+    @Override
+    public void publish(UUID id) {
+        Job job = jobRepository.findById(id).orElseThrow(() -> {
+            throw new IllegalArgumentException("Job not found!");
+        });
+
+        job.setStatus(JobStatus.PUBLISHED);
+
+        jobRepository.save(job);
     }
 
 

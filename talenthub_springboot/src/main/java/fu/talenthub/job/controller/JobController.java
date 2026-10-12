@@ -49,8 +49,10 @@ public class JobController {
 
         JobResponse jobResponse2 = (JobResponse) model.asMap().get("jobRes2");
         JobResponse jobResponse = (JobResponse) model.asMap().get("jobRes");
+
         log.info("Job Response= {}", jobResponse);
         log.info("Job Response= {}", jobResponse2);
+        log.info("Message= {}", model.asMap().get("error"));
 
         model.addAttribute("jobs", jobService.findAll());
         return "jobs/job-list";
@@ -104,13 +106,12 @@ public class JobController {
     @GetMapping("/publishion/{id}")
     public RedirectView publishJob(@PathVariable("id") UUID id, Model model,
                                    RedirectAttributes redirectAttributes,
-                                   HttpSession session) {
+                                   HttpSession session){
         // Call service
 
-        log.info("Job id {} - {}", id, jobService.findById(id));
+        log.info("Job id {}", id);
 
-        redirectAttributes.addFlashAttribute("jobRes2", jobService.findById(id));
-        model.addAttribute("jobRes", jobService.findById(id));
+        jobService.publish(id);
 
         RedirectView redirectView = new RedirectView();
         redirectView.setContextRelative(true);

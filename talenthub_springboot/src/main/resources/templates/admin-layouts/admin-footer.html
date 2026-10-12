@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- Admin Footer Fragment -->
+<body>
+<footer th:fragment="footer" class="admin-footer">
+    <div>
+        &copy; <span th:text="${#dates != null} ? ${#dates.format(#dates.createNow(), 'yyyy')} : '2026'">2026</span> <a href="/">Job Board</a>. All rights reserved.
+    </div>
+    <div>
+        Hand-crafted & made with <i class="bi bi-heart-fill text-danger"></i>
+    </div>
+</footer>
+</body>
+</html>

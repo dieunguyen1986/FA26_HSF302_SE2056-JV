@@ -1,3 +1,100 @@
-<header class="header" th:fragment="site-header">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--
+  Reusable site header / navbar.
+  Usage:  <header th:replace="~{views/fragments/header :: header('browse')}"></header>
+  Param `active` (string) highlights the current menu item: home | browse | pages | blog | contact
+-->
+<body>
+<header th:fragment="header(active)" class="jb-header">
+    <nav class="navbar navbar-expand-lg navbar-dark py-3">
+        <div class="container-fluid px-4">
 
+            <!-- Brand -->
+            <a class="navbar-brand d-flex align-items-center gap-2 me-4" th:href="@{/}" href="/">
+                <span class="jb-brand-logo d-inline-flex align-items-center justify-content-center">
+                    <i class="bi bi-search"></i>
+                </span>
+                <span class="lh-1">
+                    <span class="fw-bold fs-4 d-block">Job Board</span>
+                    <small class="text-secondary">Find your dream job</small>
+                </span>
+            </a>
+
+            <!-- Category quick select -->
+            <select class="form-select form-select-sm jb-category d-none d-lg-block me-3" aria-label="Category">
+                <option selected>Category</option>
+                <option th:each="dept : ${departments}"
+                        th:value="${dept.id}" th:text="${dept.departmentName}"></option>
+            </select>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#jbNavbar" aria-controls="jbNavbar"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="jbNavbar">
+                <!-- Center menu -->
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-2">
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${active == 'home'} ? 'active fw-bold'"
+                           th:href="@{/}" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${active == 'browse'} ? 'active fw-bold'"
+                           th:href="@{/public/jobs}" href="/jobs/browse">Browse Job</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" th:classappend="${active == 'pages'} ? 'active fw-bold'"
+                           href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/jobs/browse}" href="/jobs/browse">Job Listing</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#">Job Detail</a></li>
+                            <li><a class="dropdown-item" href="#">About Us</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" th:classappend="${active == 'blog'} ? 'active fw-bold'"
+                           href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Blog Grid</a></li>
+                            <li><a class="dropdown-item" href="#">Blog Detail</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${active == 'contact'} ? 'active fw-bold'"
+                           href="#">Contact</a>
+                    </li>
+                </ul>
+
+                <!-- Right actions -->
+                <div sec:authorize="isAuthenticated()" class="d-flex align-items-center gap-3" id="navbarNavDropdown">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" sec:authentication="principal.username"
+                           id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <form th:action="@{/auths/logout}" method="post">
+                                    <button type="submit" class="dropdown-item">
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </div>
+                <div sec:authorize="isAnonymous()" class="d-flex align-items-center gap-3">
+                    <a class="nav-link text-light" th:href="@{/auths/login}" href="/auth/login">Log in</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 </header>
+
+</body>
+</html>
