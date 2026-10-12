@@ -8,6 +8,7 @@ import fu.talenthub.job.exception.JobInvalidException;
 import fu.talenthub.job.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -19,6 +20,7 @@ public class JobServiceImpl implements JobService {
     private final JobRepository jobRepository;
 
     @Override
+    @Transactional
     public JobResponse create(CreateJobRequest request) {
         // Business Rule: Validate
 
@@ -31,6 +33,7 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
+    @Transactional
     public List<JobResponse> findAll() {
         List<Job> jobs = jobRepository.findAll();
 
@@ -42,6 +45,7 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
+    @Transactional
     public JobResponse findById(UUID id) {
         Job job = jobRepository.findById(id).orElseThrow(() -> {
             throw new IllegalArgumentException("Job not found!");
@@ -50,6 +54,7 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
+    @Transactional
     public JobResponse update(UUID id, CreateJobRequest request) {
         Job job = jobRepository.findById(id).orElseThrow(() -> {
             throw new IllegalArgumentException("Job not found!");
@@ -69,6 +74,7 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
+    @Transactional
     public void delete(UUID id) {
         if (!jobRepository.existsById(id)) {
             throw new IllegalArgumentException("Job not found!");
@@ -77,6 +83,7 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
+    @Transactional
     public void publish(UUID id) {
         Job job = jobRepository.findById(id).orElseThrow(() -> {
             throw new IllegalArgumentException("Job not found!");

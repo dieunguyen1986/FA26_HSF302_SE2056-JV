@@ -18,4 +18,5 @@ public class DepartmentServiceImpl implements DepartmentService {
             return new DepartmentResponse(dept.getId(), dept.getDepartmentName());
         }).toList();
     }
+
 }

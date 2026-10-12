@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -56,4 +58,8 @@ public class Job extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", referencedColumnName = "id")
     private Department department;
+
+    @ManyToMany
+    @JoinTable(name = "job_skills", joinColumns = {@JoinColumn(name = "job_id", nullable = false)}, inverseJoinColumns = {@JoinColumn(name = "skill_id", nullable = false)})
+    private List<Skill> skills = new ArrayList<>();
 }
