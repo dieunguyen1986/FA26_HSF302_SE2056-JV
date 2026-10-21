@@ -14,7 +14,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public List<DepartmentResponse> findAll() {
-        return departmentRepository.findAll().stream().map((dept) -> {
+        return departmentRepository.findAllWithJobs().stream().map((dept) -> {
             return new DepartmentResponse(dept.getId(), dept.getDepartmentName());
         }).toList();
     }

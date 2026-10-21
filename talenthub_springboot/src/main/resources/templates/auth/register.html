@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register Page</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+<body class="bg-light">
+<div class="container-fluid px-3">
+    <div class="row justify-content-center align-items-center min-vh-100 py-4">
+        <div class="card border-0 shadow-sm" style="width: min(100%, 640px); min-height: 560px;">
+            <div class="card-body p-4">
+                <h2 class="card-title text-center mb-3">Register Form</h2>
+                <hr class="mt-0 mb-3">
+                <p class="card-text text-muted mb-4">Create your account. It's free and only takes a minute.</p>
+
+                <form th:object="${user}" method="post" th:action="@{/auths/register}">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <input type="text" class="form-control" th:field="*{fullName}" placeholder="Full name">
+                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
+                        </div>
+
+                        <div class="col-12">
+                            <input type="email" class="form-control" th:field="*{email}" placeholder="admin@example.com">
+                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="password" class="form-control" th:field="*{password}" placeholder="Your Password">
+                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="password" class="form-control" th:field="*{confirmPassword}" placeholder="Confirm Password">
+                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
+                        </div>
+
+                        <div class="col-12">
+                            <input type="text" class="form-control" th:field="*{phone}" placeholder="09876544567">
+                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-check mt-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                        <label class="form-check-label" for="flexCheckDefault">
+                            I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mt-4">Register Now</button>
+
+                    <p class="text-center text-muted small mt-3 mb-0">
+                        Already have an account?
+                        <a th:href="@{/auths/login}" href="/auths/login">Log in</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -11,7 +11,7 @@
         <div class="container-fluid px-4">
 
             <!-- Brand -->
-            <a class="navbar-brand d-flex align-items-center gap-2 me-4" th:href="@{/}" href="/">
+            <a class="navbar-brand d-flex align-items-center gap-2 me-4" th:href="@{/static}" href="/static">
                 <span class="jb-brand-logo d-inline-flex align-items-center justify-content-center">
                     <i class="bi bi-search"></i>
                 </span>
@@ -39,7 +39,7 @@
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-2">
                     <li class="nav-item">
                         <a class="nav-link" th:classappend="${active == 'home'} ? 'active fw-bold'"
-                           th:href="@{/}" href="/">Home</a>
+                           th:href="@{/static}" href="/static">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:classappend="${active == 'browse'} ? 'active fw-bold'"

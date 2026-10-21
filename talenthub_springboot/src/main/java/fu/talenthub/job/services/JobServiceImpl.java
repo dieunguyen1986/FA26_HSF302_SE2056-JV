@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -68,7 +67,6 @@ public class JobServiceImpl implements JobService {
         job.setUtmMedium(request.utmMedium());
         job.setUtmSource(request.utmSource());
         job.setDeadline(request.deadline());
-        job.setUpdatedAt(OffsetDateTime.now());
 
         return JobResponse.from(jobRepository.save(job));
     }
@@ -106,7 +104,6 @@ public class JobServiceImpl implements JobService {
         job.setUtmMedium(request.utmMedium());
         job.setUtmSource(request.utmSource());
         job.setDeadline(request.deadline());
-        job.setCreatedAt(OffsetDateTime.now());
         return job;
     }
 }
