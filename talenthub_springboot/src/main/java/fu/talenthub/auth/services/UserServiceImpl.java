@@ -8,6 +8,7 @@ import fu.talenthub.auth.repository.UserRepository;
 import fu.talenthub.shared.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,20 +17,21 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository; // DI - Inject
     private final UserMapper userMapper; // Inject
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public boolean register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new BusinessException("Email is existed!");
+            throw new BusinessException(1, "Email is existed!");
         }
 
         if (userRepository.existsByPhone(request.getPhone())) {
-            throw new BusinessException("Phone is existed!");
+            throw new BusinessException(2, "Phone is existed!");
         }
 
         User user = userMapper.toEntity(request);
         user.setStatus(UserStatus.ACTIVE);
-        user.setPasswordHash(request.getPassword());
+        user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
 
         userRepository.save(user);
 

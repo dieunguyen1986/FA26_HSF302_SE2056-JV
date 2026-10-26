@@ -22,27 +22,37 @@
                     <div class="row g-3">
                         <div class="col-12">
                             <input type="text" class="form-control" th:field="*{fullName}" placeholder="Full name">
-                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
+                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('fullName')}"
+                                 th:errors="*{fullName}"></div>
                         </div>
 
                         <div class="col-12">
-                            <input type="email" class="form-control" th:field="*{email}" placeholder="admin@example.com">
-                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                            <input type="email" class="form-control" th:field="*{email}"
+                                   placeholder="admin@example.com">
+                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('email')}"
+                                 th:errors="*{email}"></div>
                         </div>
 
                         <div class="col-md-6">
-                            <input type="password" class="form-control" th:field="*{password}" placeholder="Your Password">
-                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                            <input type="password" class="form-control" th:field="*{password}"
+                                   placeholder="Your Password">
+                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('password')}"
+                                 th:errors="*{password}"></div>
                         </div>
 
                         <div class="col-md-6">
-                            <input type="password" class="form-control" th:field="*{confirmPassword}" placeholder="Confirm Password">
-                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
+                            <input type="password" class="form-control" th:field="*{confirmPassword}"
+                                   placeholder="Confirm Password">
+                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('confirmPassword')}"
+                                 th:errors="*{confirmPassword}"></div>
                         </div>
 
                         <div class="col-12">
                             <input type="text" class="form-control" th:field="*{phone}" placeholder="09876544567">
-                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('phone')}"
+                                 th:errors="*{phone}"></div>
+                            <div class="text-danger small mt-1" th:if="${param.phoneError}"
+                                 th:text="${error}"></div>
                         </div>
                     </div>
 

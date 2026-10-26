@@ -45,7 +45,9 @@ public class JobController {
 
     // 1. XEM (Read - List)
     @GetMapping
-    public String listJobs(Model model) {
+    public String listJobs(Model model, HttpSession session) {
+
+        log.info("Session {} ", session.getId());
 
         JobResponse jobResponse2 = (JobResponse) model.asMap().get("jobRes2");
         JobResponse jobResponse = (JobResponse) model.asMap().get("jobRes");
