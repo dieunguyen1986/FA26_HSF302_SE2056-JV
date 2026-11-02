@@ -2,11 +2,13 @@ package fu.talenthub.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,52 +23,99 @@ import java.util.List;
 @Configuration
 @RequiredArgsConstructor
 @Slf4j
+@EnableMethodSecurity
 public class SecurityConfig {
+
     private final UserDetailsService userDetailsService;
+
+    @Value("${security.remember-me.key:change-this-key-in-production}")
+    private String rememberMeKey;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http.csrf((csrf)->{
-//            csrf.disable();
-//        });
+        // CSRF is enabled by default.
+        // Disable it only for stateless APIs that use another CSRF strategy.
+//        http.csrf(csrf -> csrf.disable());
 
-        http.authorizeHttpRequests((auth) -> {
-                    auth.requestMatchers("/auths/**", "/public/**").permitAll()
+        http.authorizeHttpRequests(auth -> {
+                    auth.requestMatchers(
+                                    "/",
+                                    "/auths/**",
+                                    "/public/**",
+                                    "/error/403",
+                                    "/css/**",
+                                    "/js/**",
+                                    "/images/**",
+                                    "/favicon.ico"
+                            ).permitAll()
                             .anyRequest().authenticated();
                 })
-                .formLogin((form) -> {
+                .formLogin(form -> {
                     form.loginPage("/auths/login")
                             .loginProcessingUrl("/auths/login")
-                            .usernameParameter("email") // dieunt
-                            .passwordParameter("password") // 12345
+                            .usernameParameter("email")
+                            .passwordParameter("password")
                             .successHandler((request, response, authentication) -> {
-                                UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+                                UserDetails userDetails =
+                                        (UserDetails) authentication.getPrincipal();
+
                                 log.info("User name {}", userDetails.getUsername());
 
-                                Collection<? extends GrantedAuthority> grantedAuthorities = userDetails.getAuthorities();
+                                Collection<? extends GrantedAuthority> grantedAuthorities =
+                                        userDetails.getAuthorities();
 
-                                List<String> roles = grantedAuthorities
-                                        .stream().map((grantedAuthority -> grantedAuthority.getAuthority())).toList();
-                                log.info("grantedAuthorities {}", roles);
+                                List<String> roles = grantedAuthorities.stream()
+                                        .map(GrantedAuthority::getAuthority)
+                                        .toList();
 
-                                if(roles.isEmpty()){
-                                    response.sendRedirect(request.getContextPath() + "/public");
-                                }
+                                log.info("Granted authorities {}", roles);
 
-                                if (roles.contains("ROLE_RECRUITER")) {
-                                    log.info("Recruiter role");
-                                    response.sendRedirect(response.encodeRedirectURL("/jobs"));
-                                }
+                                String targetUrl = roles.contains("ROLE_RECRUITER")
+                                        ? "/jobs"
+                                        : "/public";
+
+                                response.sendRedirect(
+                                        response.encodeRedirectURL(
+                                                request.getContextPath() + targetUrl
+                                        )
+                                );
                             })
                             .failureHandler((request, response, exception) -> {
-                                log.info("failureHandler");
+                                log.warn("Authentication failed: {}", exception.getMessage());
 
-                                response.sendRedirect(response.encodeRedirectURL("/auths/login"));
-                            })
-                    ;
-
+                                response.sendRedirect(
+                                        response.encodeRedirectURL(
+                                                request.getContextPath() + "/auths/login?error"
+                                        )
+                                );
+                            });
                 })
-        ;
+                .rememberMe(rememberMe -> rememberMe
+                        .key(rememberMeKey)
+                        .rememberMeParameter("rememberMe")
+                        .tokenValiditySeconds(14 * 24 * 60 * 60)
+                        .userDetailsService(userDetailsService)
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/auths/logout")
+                        .logoutSuccessUrl("/auths/login?logout")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID", "remember-me")
+                )
+                .exceptionHandling(exception -> {
+                    exception.authenticationEntryPoint((request, response, authException) -> {
+                        response.sendRedirect(
+                                request.getContextPath() + "/auths/login?notLogged"
+                        );
+                    });
+
+                    exception.accessDeniedHandler((request, response, accessDeniedException) -> {
+                        response.sendRedirect(
+                                request.getContextPath() + "/auths/login?accessDenied"
+                        );
+                    });
+                });
 
         return http.build();
     }
@@ -78,10 +127,9 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager() {
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider(userDetailsService);
+        DaoAuthenticationProvider daoAuthenticationProvider =
+                new DaoAuthenticationProvider(userDetailsService);
 
-        ProviderManager providerManager = new ProviderManager(daoAuthenticationProvider);
-
-        return providerManager;
+        return new ProviderManager(daoAuthenticationProvider);
     }
 }

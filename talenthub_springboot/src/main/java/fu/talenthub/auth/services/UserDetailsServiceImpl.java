@@ -2,6 +2,7 @@ package fu.talenthub.auth.services;
 
 import fu.talenthub.auth.entity.Role;
 import fu.talenthub.auth.entity.User;
+import fu.talenthub.auth.entity.UserStatus;
 import fu.talenthub.auth.repository.RoleRepository;
 import fu.talenthub.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,9 +30,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Optional<User> optionalUser = userRepository.findByEmail(username);
 
-        User user = optionalUser.orElseThrow(() -> {
-            return new RuntimeException("Account not found!");
-        });
+        User user = optionalUser.orElseThrow(() ->
+                new UsernameNotFoundException("Account not found!"));
 
         log.info("UserDetailsServiceImpl loadUserByUsername id:{}", user.getId());
 
@@ -49,7 +49,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         //
 
 
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPasswordHash(), grantedAuthorities);
+        boolean active = user.getStatus() == UserStatus.ACTIVE;
+        boolean accountNotLocked = user.getStatus() != UserStatus.LOCKED;
+
+        UserDetails userDetails = new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPasswordHash(),
+                active,
+                true,
+                true,
+                accountNotLocked,
+                grantedAuthorities
+        );
 
         return userDetails;
     }

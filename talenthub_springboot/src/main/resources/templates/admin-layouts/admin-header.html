@@ -43,8 +43,8 @@
                 <li><a class="dropdown-item py-2" th:href="@{/admin/profile}"><i class="bi bi-person me-2 text-secondary"></i> My Profile</a></li>
                 <li><a class="dropdown-item py-2" th:href="@{/admin/settings}"><i class="bi bi-gear me-2 text-secondary"></i> Settings</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li>
-                    <form th:action="@{/auth/logout}" method="post">
+                <li sec:authorize="isAuthenticated()">
+                    <form th:action="@{/auths/logout}" method="post">
                         <button type="submit" class="dropdown-item py-2 text-danger">
                             <i class="bi bi-box-arrow-right me-2"></i> Log out
                         </button>

@@ -1,12 +1,263 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TalentHub - Find your next opportunity</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          onerror="this.onerror=null; this.href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css';">
 </head>
-<body>
-  <H3>Home Page</H3>
+<body class="bg-light">
 
-<a th:href="@{auths/login}" >Login</a>
+<header th:replace="~{public-layouts/header :: header('home')}"></header>
+
+<main>
+    <section class="bg-white text-dark border-bottom">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-8 col-xl-7">
+                    <div sec:authorize="hasAuthority('ROLE_CANDIDATE')"
+                         class="text-primary small fw-bold mb-3">
+                        Xin chào, <span sec:authentication="name">candidate@example.com</span>
+                    </div>
+                    <p class="text-uppercase text-secondary small fw-bold mb-2">Find your next role</p>
+                    <h1 class="h2 fw-bold mb-3">Tìm một công việc phù hợp với bạn.</h1>
+                    <p class="text-secondary mb-4">
+                        Tìm kiếm cơ hội việc làm theo kỹ năng, kinh nghiệm và mục tiêu nghề nghiệp của bạn.
+                    </p>
+
+                    <form class="row g-2" th:action="@{/public}" method="get">
+                        <div class="col-md-8">
+                            <label class="visually-hidden" for="keyword">Keyword</label>
+                            <input id="keyword" name="q" type="search" class="form-control"
+                                   placeholder="Job title, keyword or company...">
+                        </div>
+                        <div class="col-md-4 d-grid">
+                            <button class="btn btn-primary" type="submit">Search jobs</button>
+                        </div>
+                    </form>
+                    <p class="small text-secondary mt-3 mb-0">
+                        2,400+ jobs · 850+ companies · Updated daily
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-3 mb-5">
+                <div class="col-md-4">
+                    <div class="bg-white border rounded p-4 h-100">
+                        <div class="h3 fw-bold text-primary mb-1">2,400+</div>
+                        <p class="text-secondary mb-0">Việc làm đang tuyển</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="bg-white border rounded p-4 h-100">
+                        <div class="h3 fw-bold text-primary mb-1">850+</div>
+                        <p class="text-secondary mb-0">Doanh nghiệp uy tín</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="bg-white border rounded p-4 h-100">
+                        <div class="h3 fw-bold text-primary mb-1">12k+</div>
+                        <p class="text-secondary mb-0">Ứng viên đang kết nối</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
+                <div>
+                    <p class="text-primary text-uppercase fw-bold small mb-2">Featured opportunities</p>
+                    <h2 class="fw-bold mb-1">Việc làm nổi bật</h2>
+                    <p class="text-secondary mb-0">Một số cơ hội mới dành cho bạn.</p>
+                </div>
+                <a class="btn btn-outline-primary" th:href="@{/public/jobs}">View all jobs</a>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-xl-3">
+                    <article class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <span class="badge bg-primary">Full-time</span>
+                                <span class="small text-secondary">2 days ago</span>
+                            </div>
+                            <h3 class="h5 fw-bold">Backend Java Developer</h3>
+                            <p class="text-secondary small mb-1">Nova Technology</p>
+                            <p class="small mb-3">Ho Chi Minh City · 25 - 40M VND</p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-dark border">Java</span>
+                                <span class="badge bg-light text-dark border">Spring Boot</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 px-4 pb-4">
+                            <a class="btn btn-sm btn-outline-primary w-100" href="#">View position</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                    <article class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <span class="badge bg-success">Hybrid</span>
+                                <span class="small text-secondary">4 days ago</span>
+                            </div>
+                            <h3 class="h5 fw-bold">Product Designer</h3>
+                            <p class="text-secondary small mb-1">Bright Studio</p>
+                            <p class="small mb-3">Da Nang · 18 - 28M VND</p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-dark border">Figma</span>
+                                <span class="badge bg-light text-dark border">UX Research</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 px-4 pb-4">
+                            <a class="btn btn-sm btn-outline-primary w-100" href="#">View position</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                    <article class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <span class="badge bg-warning text-dark">Part-time</span>
+                                <span class="small text-secondary">1 week ago</span>
+                            </div>
+                            <h3 class="h5 fw-bold">Digital Marketing Executive</h3>
+                            <p class="text-secondary small mb-1">Mekong Retail</p>
+                            <p class="small mb-3">Ha Noi · 12 - 20M VND</p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-dark border">Content</span>
+                                <span class="badge bg-light text-dark border">SEO</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 px-4 pb-4">
+                            <a class="btn btn-sm btn-outline-primary w-100" href="#">View position</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                    <article class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <span class="badge bg-info text-dark">Remote</span>
+                                <span class="small text-secondary">1 week ago</span>
+                            </div>
+                            <h3 class="h5 fw-bold">Data Analyst</h3>
+                            <p class="text-secondary small mb-1">Insight Labs</p>
+                            <p class="small mb-3">Remote · 20 - 32M VND</p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-dark border">SQL</span>
+                                <span class="badge bg-light text-dark border">Power BI</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 px-4 pb-4">
+                            <a class="btn btn-sm btn-outline-primary w-100" href="#">View position</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="row mt-3 g-4">
+                <div class="col-md-6 col-xl-3">
+                    <article class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <span class="badge bg-secondary">Full-time</span>
+                                <span class="small text-secondary">Today</span>
+                            </div>
+                            <h3 class="h5 fw-bold">Mobile Developer</h3>
+                            <p class="text-secondary small mb-1">Orbit Digital</p>
+                            <p class="small mb-3">Ho Chi Minh City · 22 - 35M VND</p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-dark border">Flutter</span>
+                                <span class="badge bg-light text-dark border">Dart</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 px-4 pb-4">
+                            <a class="btn btn-sm btn-outline-primary w-100" href="#">View position</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                    <article class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <span class="badge bg-success">Hybrid</span>
+                                <span class="small text-secondary">Today</span>
+                            </div>
+                            <h3 class="h5 fw-bold">HR Business Partner</h3>
+                            <p class="text-secondary small mb-1">Greenfield Group</p>
+                            <p class="small mb-3">Ha Noi · 18 - 30M VND</p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-dark border">HR</span>
+                                <span class="badge bg-light text-dark border">People Ops</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 px-4 pb-4">
+                            <a class="btn btn-sm btn-outline-primary w-100" href="#">View position</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                    <article class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <span class="badge bg-warning text-dark">Contract</span>
+                                <span class="small text-secondary">Yesterday</span>
+                            </div>
+                            <h3 class="h5 fw-bold">Customer Success Specialist</h3>
+                            <p class="text-secondary small mb-1">Cloudwise</p>
+                            <p class="small mb-3">Remote · 15 - 24M VND</p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-dark border">Customer Care</span>
+                                <span class="badge bg-light text-dark border">SaaS</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 px-4 pb-4">
+                            <a class="btn btn-sm btn-outline-primary w-100" href="#">View position</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                    <article class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <span class="badge bg-info text-dark">Internship</span>
+                                <span class="small text-secondary">2 days ago</span>
+                            </div>
+                            <h3 class="h5 fw-bold">Finance Intern</h3>
+                            <p class="text-secondary small mb-1">Northstar Finance</p>
+                            <p class="small mb-3">Da Nang · 5 - 8M VND</p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-dark border">Excel</span>
+                                <span class="badge bg-light text-dark border">Accounting</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 px-4 pb-4">
+                            <a class="btn btn-sm btn-outline-primary w-100" href="#">View position</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer th:replace="~{public-layouts/footer :: footer}"></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        onerror="this.onerror=null; this.src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js';"></script>
 </body>
 </html>

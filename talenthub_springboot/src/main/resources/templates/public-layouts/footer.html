@@ -1,74 +1,51 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<!--
-  Reusable site footer.
-  Usage:  <footer th:replace="~{views/fragments/footer :: footer}"></footer>
--->
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <body>
-<footer th:fragment="footer" class="jb-footer pt-5">
-    <div class="container px-4">
-        <div class="row gy-4">
-
-            <!-- Brand / about -->
-            <div class="col-lg-4 col-md-6">
-                <a class="d-flex align-items-center gap-2 text-white text-decoration-none mb-3" th:href="@{/static}" href="/static">
-                    <span class="jb-brand-logo d-inline-flex align-items-center justify-content-center">
-                        <i class="bi bi-search"></i>
-                    </span>
-                    <span class="fw-bold fs-4">Job Board</span>
+<footer th:fragment="footer" class="bg-white text-dark border-top pt-3">
+    <div class="container">
+        <div class="row g-3 align-items-center pb-3">
+            <div class="col-lg-4">
+                <a class="d-inline-flex align-items-center gap-2 text-dark text-decoration-none fw-bold fs-5 mb-1"
+                   th:href="@{/public}">
+                    <span class="border border-primary rounded px-2 py-1 text-primary fs-6">TH</span>
+                    <span class="text-dark">TalentHub</span>
                 </a>
-                <p class="small mb-3">
-                    Find your dream job and build your career with thousands of opportunities
-                    from top companies around the world.
+                <p class="text-secondary small mb-0">
+                    Kết nối ứng viên với cơ hội nghề nghiệp phù hợp.
                 </p>
-                <div class="d-flex gap-2">
-                    <a href="#" class="jb-social d-inline-flex align-items-center justify-content-center"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="jb-social d-inline-flex align-items-center justify-content-center"><i class="bi bi-twitter-x"></i></a>
-                    <a href="#" class="jb-social d-inline-flex align-items-center justify-content-center"><i class="bi bi-linkedin"></i></a>
-                    <a href="#" class="jb-social d-inline-flex align-items-center justify-content-center"><i class="bi bi-instagram"></i></a>
-                </div>
             </div>
 
-            <!-- Quick links -->
-            <div class="col-lg-2 col-md-6">
-                <h6 class="text-uppercase fw-bold mb-3">Company</h6>
-                <ul class="list-unstyled d-grid gap-2 small mb-0">
-                    <li><a th:href="@{/static}" href="/static">Home</a></li>
-                    <li><a th:href="@{/jobs/browse}" href="/jobs/browse">Browse Job</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact</a></li>
+            <div class="col-6 col-lg-2">
+                <h6 class="text-uppercase fw-bold small mb-2">Explore</h6>
+                <ul class="list-unstyled small mb-0">
+                    <li class="mb-1"><a class="link-dark text-decoration-none" th:href="@{/public}">Home</a></li>
+                    <li class="mb-1"><a class="link-dark text-decoration-none" th:href="@{/public/jobs}">Find jobs</a></li>
+                    <li><a class="link-dark text-decoration-none" th:href="@{/auths/register}">Join TalentHub</a></li>
                 </ul>
             </div>
 
-            <!-- Candidate -->
-            <div class="col-lg-2 col-md-6">
-                <h6 class="text-uppercase fw-bold mb-3">Candidate</h6>
-                <ul class="list-unstyled d-grid gap-2 small mb-0">
-                    <li><a href="#">Job Listing</a></li>
-                    <li><a href="#">My Account</a></li>
-                    <li><a href="#">Saved Jobs</a></li>
-                    <li><a href="#">FAQ</a></li>
+            <div class="col-6 col-lg-2">
+                <h6 class="text-uppercase fw-bold small mb-2">Support</h6>
+                <ul class="list-unstyled small mb-0">
+                    <li class="mb-1"><a class="link-dark text-decoration-none" href="#about">About us</a></li>
+                    <li class="mb-1"><a class="link-dark text-decoration-none" href="#newsletter">Newsletter</a></li>
+                    <li><a class="link-dark text-decoration-none" href="#contact">Contact</a></li>
                 </ul>
             </div>
 
-            <!-- Newsletter -->
-            <div class="col-lg-4 col-md-6">
-                <h6 class="text-uppercase fw-bold mb-3">Newsletter</h6>
-                <p class="small mb-3">Subscribe to get the latest jobs delivered to your inbox.</p>
-                <form class="d-flex gap-2" onsubmit="return false">
-                    <input type="email" class="form-control form-control-sm" placeholder="Your email address">
-                    <button type="submit" class="btn btn-jb btn-sm px-3">Subscribe</button>
+            <div id="newsletter" class="col-lg-4">
+                <h6 class="text-uppercase fw-bold small mb-2">Stay updated</h6>
+                <form class="input-group input-group-sm" onsubmit="return false">
+                    <input type="email" class="form-control" placeholder="Email của bạn" aria-label="Email của bạn">
+                    <button class="btn btn-primary" type="submit">Subscribe</button>
                 </form>
             </div>
         </div>
 
-        <hr class="border-secondary mt-5 mb-0">
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center py-3 small">
-            <span>&copy; <span th:text="${#dates != null} ? ${#dates.format(#dates.createNow(), 'yyyy')} : '2026'">2026</span> Job Board. All rights reserved.</span>
-            <div class="d-flex gap-3">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms &amp; Conditions</a>
-            </div>
+        <hr class="my-0">
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-2 py-2 small text-secondary">
+            <span>&copy; 2026 TalentHub. All rights reserved.</span>
+            <span>Built for better career connections.</span>
         </div>
     </div>
 </footer>

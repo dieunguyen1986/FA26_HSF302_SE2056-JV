@@ -18,6 +18,16 @@
                 <hr class="mt-0 mb-3">
                 <p class="card-text text-muted mb-4">Welcome back. Sign in to continue to your account.</p>
 
+                <div class="alert alert-warning" th:if="${param.required}">
+                    Please log in to access this page.
+                </div>
+                <div class="alert alert-danger" th:if="${param.error}">
+                    Invalid email or password.
+                </div>
+                <div class="alert alert-success" th:if="${param.logout}">
+                    You have been logged out successfully.
+                </div>
+
                 <form th:object="${loginRequest}" method="post" th:action="@{/auths/login}">
                     <div class="row g-3">
                         <div class="col-12">

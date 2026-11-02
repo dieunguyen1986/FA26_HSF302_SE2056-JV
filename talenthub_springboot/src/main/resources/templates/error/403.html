@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Access denied</title>
+    <style>
+        body { font-family: sans-serif; margin: 3rem; }
+        .container { max-width: 640px; margin: auto; text-align: center; }
+        a { color: #0d6efd; text-decoration: none; }
+    </style>
+</head>
+<body>
+<main class="container">
+    <h1>403 - Access denied</h1>
+    <p>Bạn không có quyền truy cập chức năng này.</p>
+    <a th:href="@{/public}">Quay về trang chủ</a>
+</main>
+</body>
+</html>
