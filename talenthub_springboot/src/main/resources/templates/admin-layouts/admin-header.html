@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <!-- Admin Header Fragment -->
 <body>
 
@@ -29,14 +31,14 @@
 
         <!-- User Dropdown -->
         <div class="dropdown">
-<!--            <a href="#" class="admin-header-user dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">-->
-<!--                <div class="avatar" th:text="${#authentication.name != null ? #strings.substring(#authentication.name,0,1).toUpperCase() : 'A'}">A</div>-->
-<!--                <div class="info d-none d-sm-block">-->
-<!--                    <div class="name" th:text="${#authentication.name}">Admin User</div>-->
-<!--                    <div class="role" sec:authorize="hasRole('ROLE_ADMIN')">Administrator</div>-->
-<!--                    <div class="role" sec:authorize="hasRole('ROLE_RECRUITER')">Recruiter</div>-->
-<!--                </div>-->
-<!--            </a>-->
+            <a href="#" class="admin-header-user dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+<!--                <div class="avatar" th:text="${#authentication.principal.username != null ? #strings.substring(#authentication.principal.username,0,1).toUpperCase() : 'A'}">A</div>-->
+                <div class="info d-none d-sm-block">
+                    <div class="name" th:text="${#authentication.principal.username}">Admin User</div>
+                    <div class="role" sec:authorize="hasRole('ROLE_ADMIN')">Administrator</div>
+                    <div class="role" sec:authorize="hasRole('ROLE_RECRUITER')">Recruiter</div>
+                </div>
+            </a>
             <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
                 <li><a class="dropdown-item py-2" th:href="@{/admin/profile}"><i class="bi bi-person me-2 text-secondary"></i> My Profile</a></li>
                 <li><a class="dropdown-item py-2" th:href="@{/admin/settings}"><i class="bi bi-gear me-2 text-secondary"></i> Settings</a></li>

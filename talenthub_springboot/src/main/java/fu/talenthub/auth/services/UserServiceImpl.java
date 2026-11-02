@@ -33,6 +33,8 @@ public class UserServiceImpl implements UserService {
         user.setStatus(UserStatus.ACTIVE);
         user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
 
+        log.info("Pass hash: {}", passwordEncoder.encode(request.getPassword()));
+
         userRepository.save(user);
 
         return true;

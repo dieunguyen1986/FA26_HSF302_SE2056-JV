@@ -7,6 +7,7 @@ import fu.talenthub.job.services.JobService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +46,7 @@ public class JobController {
 
     // 1. XEM (Read - List)
     @GetMapping
+    @PreAuthorize("hasRole('RECRUITER')")
     public String listJobs(Model model, HttpSession session) {
 
         log.info("Session {} ", session.getId());
